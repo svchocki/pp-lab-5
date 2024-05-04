@@ -3,13 +3,26 @@ import company.utils.MathUtils;
 
 public class Main {
     public static void main(String[] args) {
-        int num1 = 10;
-        int num2 = 5;
-        
-        int sum = MathUtils.add(num1, num2);
-        System.out.println("Sum of " + num1 + " and " + num2 + " is: " + sum);
-        
+        Person[] people = new Person[5];
+        final int b = 10;
+
+        try {
+            people[0] = new Person("John Doe", 30);
+            people[1] = new Person("Alice Smith", 25);
+            people[2] = new Person("Bob Johnson", 40);
+            people[3] = new Person("Emma Brown", 35);
+            people[4] = new Person("Michael Davis", 28);
+        } catch (InvalidAgeException e) {
+            System.out.println("Error creating person: " + e.getMessage());
+        }
+
         EmailMessenger emailMessenger = new EmailMessenger();
-        emailMessenger.sendMessage("The sum of " + num1 + " and " + num2 + " is: " + sum);
+
+        for (Person person : people) {
+            if (person != null) {
+                int value = MathUtils.add(person.getAge(), b);
+                emailMessenger.sendMessage(person.getName() + " - Value: " + value);
+            }
+        }
     }
 }
